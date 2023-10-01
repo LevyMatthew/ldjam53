@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dkw1mgjmgkrct"]
+
+[ext_resource type="PackedScene" uid="uid://d3j2p2e7q2wt8" path="res://assets/Printer.glb" id="1_807uy"]
+
+[node name="Printer" type="Node3D"]
+
+[node name="PrinterMesh" parent="." instance=ExtResource("1_807uy")]
+
+[node name="Output" type="Node3D" parent="."]
+
+[node name="Output2" type="Node3D" parent="."]
+
+[node name="Input" type="Area3D" parent="."]
