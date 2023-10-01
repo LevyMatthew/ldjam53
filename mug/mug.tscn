@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://d1w6ytkcqaukw"]
 
 [ext_resource type="Script" path="res://mug/mug.gd" id="1_po05v"]
-[ext_resource type="Texture2D" uid="uid://ccp8laxu2fjxx" path="res://img/whiterabbit_1500x1000.jpg" id="2_bp3v4"]
+[ext_resource type="Texture2D" uid="uid://1ams0rc8xn15" path="res://img/whiterabbit_1500x1000.jpg" id="2_bp3v4"]
 [ext_resource type="Texture2D" uid="uid://dkg08xm6ek2xj" path="res://assets/1500x1000_white.png" id="3_l7rvn"]
 [ext_resource type="PackedScene" uid="uid://bv41vd1nbk1vy" path="res://assets/Mug.glb" id="3_semsu"]
 

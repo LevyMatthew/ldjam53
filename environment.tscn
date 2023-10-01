@@ -1,7 +1,12 @@
-[gd_scene load_steps=16 format=3 uid="uid://drx4bpcps7xr8"]
+[gd_scene load_steps=25 format=3 uid="uid://drx4bpcps7xr8"]
 
+[ext_resource type="Script" path="res://environment.gd" id="1_85532"]
 [ext_resource type="Texture2D" uid="uid://ddqu654nkfogb" path="res://img/raw/tile.png" id="1_bcnl4"]
 [ext_resource type="Texture2D" uid="uid://bhw4rp4qprt60" path="res://assets/tile.png" id="2_hxa2k"]
+[ext_resource type="Texture2D" uid="uid://bxq306qenm2fx" path="res://img/mug_life.png" id="3_7rqa8"]
+[ext_resource type="Texture2D" uid="uid://1ams0rc8xn15" path="res://img/whiterabbit_1500x1000.jpg" id="5_iygad"]
+[ext_resource type="Texture2D" uid="uid://dkg08xm6ek2xj" path="res://assets/1500x1000_white.png" id="6_uffoo"]
+[ext_resource type="Texture2D" uid="uid://buhx0g80a5t5r" path="res://img/raw/rupert_majesty.jpg" id="7_haa4s"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_knxb5"]
 albedo_color = Color(0.941176, 0.509804, 0.301961, 1)
@@ -16,9 +21,19 @@ size = Vector3(1.34894, 0.294819, 0.0669777)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rvsfp"]
 albedo_color = Color(0.419608, 1, 0.952941, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_oni0j"]
+[sub_resource type="BoxMesh" id="BoxMesh_cye3w"]
 material = SubResource("StandardMaterial3D_rvsfp")
-size = Vector3(1.5, 0.3, 0.05)
+size = Vector3(1.47, 0.7, 0.05)
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hcrxm"]
+viewport_path = NodePath("Viewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4j2l1"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_hcrxm")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xfw27"]
+material = SubResource("StandardMaterial3D_4j2l1")
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_oc843"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -49,6 +64,10 @@ size = Vector2(22, 22)
 [sub_resource type="BoxShape3D" id="BoxShape3D_mccwp"]
 size = Vector3(6.74314, 1, 20)
 
+[sub_resource type="BoxMesh" id="BoxMesh_oni0j"]
+material = SubResource("StandardMaterial3D_rvsfp")
+size = Vector3(1.5, 0.3, 0.05)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_sj8t8"]
 size = Vector3(100, 2, 100)
 
@@ -57,9 +76,10 @@ material = SubResource("StandardMaterial3D_rvsfp")
 size = Vector3(0.52, 0.29, 0.05)
 
 [node name="Environment" type="Node3D"]
+script = ExtResource("1_85532")
 
 [node name="Pillar1" type="StaticBody3D" parent="."]
-transform = Transform3D(1.06066, 0, -1.06066, 0, 1.5, 0, 1.06066, 0, 1.06066, -5.80861, 2.16378, -4.97667)
+transform = Transform3D(0.634164, 0, -0.773199, 0, 1, 0, 0.773199, 0, 0.634164, -10.4017, 1.17392, -0.355031)
 
 [node name="PillarBottom" type="MeshInstance3D" parent="Pillar1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 4.35091)
@@ -78,7 +98,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.54023, 4.14469)
 shape = SubResource("BoxShape3D_jkb25")
 
 [node name="Pillar2" type="StaticBody3D" parent="."]
-transform = Transform3D(1.06066, 0, -1.06066, 0, 1.5, 0, 1.06066, 0, 1.06066, 5.34579, 2.16378, 5.44433)
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -1.34628, 1.17392, 9.67216)
 
 [node name="PillarBottom" type="MeshInstance3D" parent="Pillar2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 4.35091)
@@ -97,15 +117,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.48786, 4.48513)
 shape = SubResource("BoxShape3D_jkb25")
 
 [node name="Screen" type="StaticBody3D" parent="."]
-transform = Transform3D(5.65685, 0, -5.65685, 0, 8, 0, 5.65685, 0, 5.65685, -5.27101, 5.2, 5.25793)
+transform = Transform3D(5.65685, 0, -5.65685, 0, 8, 0, 5.65685, 0, 5.65685, -5.69868, 1.8772, 5.74538)
 
 [node name="PillarBack" type="MeshInstance3D" parent="Screen"]
-mesh = SubResource("BoxMesh_oni0j")
+transform = Transform3D(0.999167, 0, -0.0407945, 0, 1, 0, 0.0407945, 0, 0.999167, -0.133627, 0.260548, 0.474452)
+mesh = SubResource("BoxMesh_cye3w")
 skeleton = NodePath("../../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Screen"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0338542, 0.00153244)
 shape = SubResource("BoxShape3D_jkb25")
+
+[node name="Screen" type="MeshInstance3D" parent="Screen"]
+transform = Transform3D(-0.7, -1.33227e-15, -1.19209e-07, 1.01374e-15, 0.7, -1.13385e-08, 1.19209e-07, -1.13385e-08, -0.7, -0.141331, 0.272649, 0.388388)
+mesh = SubResource("QuadMesh_xfw27")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_mfpvd")
@@ -259,6 +284,10 @@ skeleton = NodePath("../../../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00719294, 0.00153244)
 shape = SubResource("BoxShape3D_jkb25")
 
+[node name="Sprite3D" type="Sprite3D" parent="Node3D/Wall1"]
+transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0.00956649, 0, 0.0834909)
+texture = ExtResource("3_7rqa8")
+
 [node name="Wall2" type="StaticBody3D" parent="Node3D"]
 transform = Transform3D(-6.55671e-07, 0, -15, 0, 15, 0, 15, 0, -6.55671e-07, 8.71254, 2.29256, -6.03443)
 
@@ -366,3 +395,28 @@ skeleton = NodePath("../../SquareRoom/Wall4")
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="Doorway4"]
 transform = Transform3D(1, 0, -3.55271e-15, 0, 1, 0, 3.55271e-15, 0, 1, 0, 0.00719294, 0.00153235)
 shape = SubResource("BoxShape3D_jkb25")
+
+[node name="Viewport" type="SubViewport" parent="."]
+size = Vector2i(1500, 1000)
+render_target_update_mode = 4
+
+[node name="Rabbit" type="Node2D" parent="Viewport"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Viewport/Rabbit"]
+texture = ExtResource("5_iygad")
+centered = false
+
+[node name="Blank" type="Node2D" parent="Viewport"]
+visible = false
+
+[node name="Sprite2D" type="Sprite2D" parent="Viewport/Blank"]
+visible = false
+texture = ExtResource("6_uffoo")
+centered = false
+
+[node name="Rabbit2" type="Node2D" parent="Viewport"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Viewport/Rabbit2"]
+texture = ExtResource("7_haa4s")
+centered = false
+offset = Vector2(1000, 0)
