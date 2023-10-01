@@ -1,0 +1,217 @@
+[gd_scene load_steps=19 format=3 uid="uid://cittlm6v8taw3"]
+
+[ext_resource type="Script" path="res://texture_mapper.gd" id="1_euq6t"]
+[ext_resource type="Script" path="res://mug/spawner.gd" id="2_2pq7e"]
+[ext_resource type="PackedScene" uid="uid://drx4bpcps7xr8" path="res://environment.tscn" id="2_l7gwv"]
+[ext_resource type="Script" path="res://mug/timer.gd" id="3_cwv02"]
+[ext_resource type="Script" path="res://mouse_follow.gd" id="6_7pt6t"]
+[ext_resource type="Texture2D" uid="uid://drg08sof5deb0" path="res://img/raw/blue_jay_sqare.JPG" id="7_n577y"]
+[ext_resource type="PackedScene" uid="uid://dui01dqltxklr" path="res://machine/machine.tscn" id="7_qe3xb"]
+[ext_resource type="Texture2D" uid="uid://luu783tihyb0" path="res://img/whiterabbit_750x500.jpg" id="7_st58m"]
+[ext_resource type="Texture2D" uid="uid://bqhpqls833vdk" path="res://img/raw/arctic_fox.jpg" id="8_nuxko"]
+[ext_resource type="Texture2D" uid="uid://bie3j6p5iuvq" path="res://img/raw/monarch_crop.jpg" id="9_n71kh"]
+[ext_resource type="Texture2D" uid="uid://buhx0g80a5t5r" path="res://img/raw/rupert_majesty.jpg" id="9_vi8d4"]
+[ext_resource type="Texture2D" uid="uid://c736knbh6syan" path="res://img/raw/rupert_head.jpg" id="10_ys770"]
+[ext_resource type="PackedScene" uid="uid://d3j2p2e7q2wt8" path="res://assets/Printer.glb" id="11_bojik"]
+[ext_resource type="Texture2D" uid="uid://cnggnreejxoyu" path="res://img/raw/raccoons.JPG" id="12_iw4s0"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_rn2a0"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_s4umk"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3sxsj"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_s4umk")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pdqph"]
+size = Vector3(1.03559, 0.554939, 1)
+
+[node name="Main" type="Node3D"]
+top_level = true
+
+[node name="GameSpace" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42083, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="GameSpace"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.10118)
+visible = false
+mesh = SubResource("CylinderMesh_rn2a0")
+surface_material_override/0 = SubResource("StandardMaterial3D_3sxsj")
+script = ExtResource("1_euq6t")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="GameSpace"]
+visible = false
+
+[node name="Environment" parent="." instance=ExtResource("2_l7gwv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.42083, -0.11659)
+
+[node name="MugSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.16986, 8.25893, 2.80385)
+script = ExtResource("2_2pq7e")
+
+[node name="Area3D" type="Area3D" parent="MugSpawner"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MugSpawner/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.69266, 0)
+shape = SubResource("BoxShape3D_pdqph")
+
+[node name="Timer" type="Timer" parent="MugSpawner"]
+wait_time = 0.4
+autostart = true
+script = ExtResource("3_cwv02")
+
+[node name="MugSpawner2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4967, 8.25893, 18.9744)
+script = ExtResource("2_2pq7e")
+
+[node name="Area3D" type="Area3D" parent="MugSpawner2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MugSpawner2/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.69266, 0)
+shape = SubResource("BoxShape3D_pdqph")
+
+[node name="Timer" type="Timer" parent="MugSpawner2"]
+wait_time = 0.4
+autostart = true
+script = ExtResource("3_cwv02")
+
+[node name="MugSpawner3" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.50086, 8.25893, -14.6645)
+script = ExtResource("2_2pq7e")
+
+[node name="Area3D" type="Area3D" parent="MugSpawner3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MugSpawner3/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.69266, 0)
+shape = SubResource("BoxShape3D_pdqph")
+
+[node name="Timer" type="Timer" parent="MugSpawner3"]
+wait_time = 0.4
+autostart = true
+script = ExtResource("3_cwv02")
+
+[node name="Node3D" type="Node3D" parent="." node_paths=PackedStringArray("camera3d")]
+transform = Transform3D(1, 0, -1.06581e-14, 0, 1, 0, 1.06581e-14, 0, 1, 12.5245, 3.7613, 10.5563)
+script = ExtResource("6_7pt6t")
+camera3d = NodePath("../MainCamera")
+
+[node name="Sprite3D" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -3.1916, -0.0698276, 0)
+texture = ExtResource("7_st58m")
+
+[node name="Sprite3D3" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(-7.43094e-09, 0, -0.17, 0, 0.17, 0, 0.17, 0, -7.43094e-09, -6.87495, -0.0365367, 9.6635)
+texture = ExtResource("7_n577y")
+
+[node name="Sprite3D4" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(-6.55671e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.55671e-09, -7.87624, 0.62494, -17.9763)
+texture = ExtResource("8_nuxko")
+
+[node name="Sprite3D5" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(-6.55671e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.55671e-09, -27.8146, 0.399003, -18.9113)
+texture = ExtResource("9_vi8d4")
+
+[node name="Sprite3D6" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(-6.55671e-09, 0, 0.15, 0, 0.15, 0, -0.15, 0, -6.55671e-09, -27.8146, 0.399003, -24.3662)
+texture = ExtResource("10_ys770")
+
+[node name="Sprite3D2" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(-1.5299e-08, 0, -0.35, 0, 0.35, 0, 0.35, 0, -1.5299e-08, -6.67283, 0.248694, 16.9459)
+texture = ExtResource("9_n71kh")
+
+[node name="Sprite3D7" type="Sprite3D" parent="Node3D"]
+transform = Transform3D(0.17, 0, 8.62733e-17, 0, 0.17, 0, -8.62733e-17, 0, 0.17, 7.25042, 0.00205994, -0.022831)
+texture = ExtResource("12_iw4s0")
+
+[node name="Machine" parent="." node_paths=PackedStringArray("main_camera") instance=ExtResource("7_qe3xb")]
+axis_lock_angular_x = true
+axis_lock_angular_z = true
+main_camera = NodePath("../MainCamera")
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(-0.656059, -0.646912, 0.388704, 0, 0.515038, 0.857167, -0.75471, 0.562352, -0.337895, 19.059, 23.071, -12.227)
+current = true
+fov = 73.125
+
+[node name="Printer" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 11.456, 1.49454, 3.50936)
+
+[node name="PrinterMesh" parent="Printer" instance=ExtResource("11_bojik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.08233)
+
+[node name="PrinterMesh2" parent="Printer" instance=ExtResource("11_bojik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-06, 0, -8.00407)
+metadata/_edit_group_ = true
+
+[node name="PrinterMesh3" parent="Printer" instance=ExtResource("11_bojik")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -17.3571, -2.86102e-06, 21.0295)
+metadata/_edit_group_ = true
+
+[node name="Output" type="Node3D" parent="Printer"]
+
+[node name="Output2" type="Node3D" parent="Printer"]
+
+[node name="Input" type="Area3D" parent="Printer"]
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Printer"]
+transform = Transform3D(-3.37955e-08, -0.462584, -0.886575, -4.04404e-08, 0.886575, -0.462584, 1, 2.02202e-08, -4.86693e-08, 3.25236, 1.78756, 2.07048)
+light_color = Color(0.909804, 0.658824, 0, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 6.36857
+spot_angle = 67.7815
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="Printer"]
+transform = Transform3D(-3.37955e-08, -0.462584, -0.886575, -4.04404e-08, 0.886575, -0.462584, 1, 2.02202e-08, -4.86693e-08, 3.25236, 1.78756, 2.07048)
+light_color = Color(0.909804, 0.658824, 0, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 6.36857
+spot_angle = 67.7815
+
+[node name="SpotLight3D5" type="SpotLight3D" parent="Printer"]
+transform = Transform3D(-1, 1.1383e-08, 8.33675e-08, -5.70663e-09, 0.97935, -0.202172, -8.39473e-08, -0.202172, -0.97935, -17.281, 1.42269, 24.9539)
+light_color = Color(0.909804, 0.658824, 0, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 6.36857
+spot_angle = 67.7815
+
+[node name="SpotLight3D3" type="SpotLight3D" parent="Printer"]
+transform = Transform3D(-3.37955e-08, -0.462584, -0.886575, -4.04404e-08, 0.886575, -0.462584, 1, 2.02202e-08, -4.86693e-08, 3.25236, 1.78756, -7.90758)
+light_color = Color(0.0980392, 0.670588, 0.843137, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 6.36857
+spot_angle = 67.7815
+
+[node name="SpotLight3D2" type="SpotLight3D" parent="Printer"]
+transform = Transform3D(-4.19454e-08, -0.199984, -0.979799, -1.74831e-08, 0.979799, -0.199984, 1, 8.74156e-09, -4.45944e-08, -4.8008, 1.2599, -0.0194807)
+light_color = Color(0.909804, 0.658824, 0, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 3.74348
+spot_angle = 89.99
+
+[connection signal="timeout" from="MugSpawner/Timer" to="MugSpawner" method="spawn"]
+[connection signal="timeout" from="MugSpawner/Timer" to="MugSpawner/Timer" method="_on_timeout"]
+[connection signal="timeout" from="MugSpawner2/Timer" to="MugSpawner2" method="spawn"]
+[connection signal="timeout" from="MugSpawner2/Timer" to="MugSpawner2/Timer" method="_on_timeout"]
+[connection signal="timeout" from="MugSpawner3/Timer" to="MugSpawner3" method="spawn"]
+[connection signal="timeout" from="MugSpawner3/Timer" to="MugSpawner3/Timer" method="_on_timeout"]
