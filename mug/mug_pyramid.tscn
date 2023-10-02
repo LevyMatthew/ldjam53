@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://5cpmeo5yd6sg"]
+
+[ext_resource type="PackedScene" uid="uid://d1w6ytkcqaukw" path="res://mug/mug.tscn" id="1_545w7"]
+
+[node name="MugPyramid" type="Node3D"]
+
+[node name="Mug" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.036, 4.76837e-07, 9.72398)
+
+[node name="Mug2" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.155096, 4.76837e-07, 9.72398)
+
+[node name="Mug3" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.47058, 4.76837e-07, 9.72398)
+
+[node name="Mug4" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(0.99993, 0, 0.0117982, 0, 1, 0, -0.0117982, 0, 0.99993, 0.84133, 1.27949, 9.72485)
+
+[node name="Mug5" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(0.99993, 0, 0.0117982, 0, 1, 0, -0.0117982, 0, 0.99993, -0.317419, 1.27949, 9.73852)
+
+[node name="Mug6" parent="." instance=ExtResource("1_545w7")]
+transform = Transform3D(0.99993, 0, 0.0117982, 0, 1, 0, -0.0117982, 0, 0.99993, 0.289077, 2.54927, 9.73137)

@@ -1,6 +1,7 @@
-[gd_scene load_steps=11 format=3 uid="uid://ccxtvqd8pui87"]
+[gd_scene load_steps=14 format=3 uid="uid://ccxtvqd8pui87"]
 
 [ext_resource type="Texture2D" uid="uid://uxl60rc01h2f" path="res://assets/Printer_0.png" id="1_gri6d"]
+[ext_resource type="Script" path="res://printer/printer.gd" id="1_xcmec"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7alti"]
 resource_name = "Material"
@@ -131,7 +132,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_vclmu")
 
-[node name="Printer" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mc0ko"]
+size = Vector3(4.9412, 2.83306, 2.91484)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jkm8j"]
+size = Vector3(6.675, 2.925, 3.145)
+
+[node name="Printer" type="StaticBody3D" node_paths=PackedStringArray("outlet_A", "outlet_B")]
+script = ExtResource("1_xcmec")
+outlet_A = NodePath("InletArea/OutletA")
+outlet_B = NodePath("InletArea/OutletB")
 
 [node name="SpotLight3D2" type="SpotLight3D" parent="."]
 transform = Transform3D(-4.19454e-08, -0.199984, -0.979799, -1.74831e-08, 0.979799, -0.199984, 1, 8.74152e-09, -4.45944e-08, -4.8008, 1.2599, -0.0194807)
@@ -173,3 +183,22 @@ skeleton = NodePath("")
 [node name="Outlet2" type="MeshInstance3D" parent="PrinterMesh"]
 mesh = SubResource("ArrayMesh_a5upd")
 skeleton = NodePath("")
+
+[node name="InletArea" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InletArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.13066, 1.45155, 2.229)
+shape = SubResource("BoxShape3D_mc0ko")
+
+[node name="OutletA" type="Node3D" parent="InletArea"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 1.46714, 1.68579, -1.11925)
+
+[node name="OutletB" type="Node3D" parent="InletArea"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.36343, 1.53557, -1.40696)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.66785, 2.229)
+shape = SubResource("BoxShape3D_jkm8j")
+
+[connection signal="body_entered" from="InletArea" to="." method="_on_inlet_area_body_entered"]
+[connection signal="body_exited" from="InletArea" to="." method="_on_inlet_area_body_exited"]

@@ -1,5 +1,6 @@
-[gd_scene load_steps=12 format=3 uid="uid://dkw1mgjmgkrct"]
+[gd_scene load_steps=14 format=3 uid="uid://dkw1mgjmgkrct"]
 
+[ext_resource type="Script" path="res://printer/printer.gd" id="1_l8av7"]
 [ext_resource type="Texture2D" uid="uid://uxl60rc01h2f" path="res://assets/Printer_0.png" id="1_oqn37"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7alti"]
@@ -132,9 +133,15 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_kap3i")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_sae4n"]
-size = Vector3(4, 2.5155, 2.33084)
+size = Vector3(3.045, 2.516, 2.331)
 
-[node name="LeftPrinter" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3ba33"]
+size = Vector3(6.375, 2.92, 2.585)
+
+[node name="LeftPrinter" type="StaticBody3D" node_paths=PackedStringArray("outlet_A", "outlet_B")]
+script = ExtResource("1_l8av7")
+outlet_A = NodePath("PrinterMesh/Outlet3")
+outlet_B = NodePath("PrinterMesh/Outlet4")
 
 [node name="PrinterMesh" type="Node3D" parent="."]
 
@@ -155,14 +162,32 @@ mesh = SubResource("ArrayMesh_ktejp")
 skeleton = NodePath("")
 
 [node name="Output" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.97997, 0, 3.43497)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.24993, 1.98174, 3.43497)
 
 [node name="Output2" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79675, 0, 3.23557)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79675, 2.30079, 3.23557)
 
-[node name="Input" type="Area3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10528, 0.0720572, -0.360197)
+[node name="InletArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.40211, 0.826912, -0.360197)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Input"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.464658, 1.44246, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InletArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.183485, 1.44246, 0)
 shape = SubResource("BoxShape3D_sae4n")
+
+[node name="SpotLight3D4" type="SpotLight3D" parent="."]
+transform = Transform3D(-3.37955e-08, -0.462584, -0.886575, -4.04404e-08, 0.886575, -0.462584, 1, 2.02202e-08, -4.86693e-08, 4.54026, 2.8295, 2.07048)
+light_color = Color(0.909804, 0.658824, 0, 1)
+light_energy = 16.0
+light_indirect_energy = 8.133
+light_volumetric_fog_energy = 8.036
+light_size = 0.491
+light_specular = 0.845
+spot_range = 6.36857
+spot_angle = 67.7815
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65449, 0)
+shape = SubResource("BoxShape3D_3ba33")
+
+[connection signal="body_entered" from="InletArea" to="." method="_on_inlet_area_body_entered"]
+[connection signal="body_exited" from="InletArea" to="." method="_on_inlet_area_body_exited"]

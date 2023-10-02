@@ -8,7 +8,7 @@ func _ready():
 	viewport.set_clear_mode(SubViewport.CLEAR_MODE_ONCE)
 
 	# Retrieve the texture and set it to the viewport quad.
-	var texture_target: MeshInstance3D = $Screen/Screen
+	var texture_target: MeshInstance3D = $Level/Screen/Screen
 	var material: Material = texture_target.mesh.surface_get_material(0)
 	material.albedo_texture = viewport.get_texture()
 

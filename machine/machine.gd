@@ -19,26 +19,26 @@ var bodies
 
 var held_root: Node3D
 var held_body: Node3D #what we're holding rn (or just held, if empty = true)
-var held_joint: Joint3D
 var empty: bool = true #holding nothing
 
 var camera: Camera3D
 @export var main_camera: Camera3D
-var cosmetic_machine : MachineCosmetic
+@export var cosmetic_machine : MachineCosmetic
 
 func _on_body_entered(body):
-	bodies.append(body)
+	if is_instance_of(body, Mug):
+		bodies.append(body)
 
 func _on_body_exited(body):
-	bodies.erase(body)
+	if is_instance_of(body, Mug):
+		bodies.erase(body)
 
 func _ready():
 	self.bodies = []
 	self.held_root = $Held
-	self.cosmetic_machine = $MachineCosmetic
-	self.held_joint = $Held/Joint
+	# self.cosmetic_machine = $MachineCosmetic
 	self.camera = $Camera
-	self.main_camera = get_node("/root/MainCamera")
+	self.main_camera = get_node("/root/Main/MainCamera")
 
 func on_open():
 	if self.empty:
