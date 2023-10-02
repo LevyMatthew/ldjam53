@@ -177,10 +177,12 @@ mesh = SubResource("ArrayMesh_dqb8d")
 skeleton = NodePath("")
 
 [node name="Outlet1" type="MeshInstance3D" parent="PrinterMesh"]
+transform = Transform3D(1, 0, 0, 0, 0.847261, 0.531177, 0, -0.531177, 0.847261, 0, 1.18094, -0.21824)
 mesh = SubResource("ArrayMesh_0kyye")
 skeleton = NodePath("")
 
 [node name="Outlet2" type="MeshInstance3D" parent="PrinterMesh"]
+transform = Transform3D(1, 0, 0, 0, 0.847261, 0.531177, 0, -0.531177, 0.847261, 0, 1.18094, -0.21824)
 mesh = SubResource("ArrayMesh_a5upd")
 skeleton = NodePath("")
 

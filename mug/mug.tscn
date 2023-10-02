@@ -21,7 +21,6 @@ height = 1.0
 
 [node name="Mug" type="RigidBody3D"]
 mass = 0.2
-gravity_scale = 0.1
 script = ExtResource("1_po05v")
 
 [node name="Cylinder" type="MeshInstance3D" parent="."]
