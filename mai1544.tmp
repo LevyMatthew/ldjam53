@@ -1,0 +1,89 @@
+[gd_scene load_steps=13 format=3 uid="uid://cjgx3dm84ac5b"]
+
+[ext_resource type="PackedScene" uid="uid://drx4bpcps7xr8" path="res://environment.tscn" id="1_k1ajf"]
+[ext_resource type="PackedScene" uid="uid://c0eiok5jbxbfc" path="res://machine/machine.tscn" id="2_fyhy5"]
+[ext_resource type="PackedScene" uid="uid://ccxtvqd8pui87" path="res://printer/printe2.tscn" id="3_4ri0b"]
+[ext_resource type="PackedScene" uid="uid://dkw1mgjmgkrct" path="res://printer/printer.tscn" id="4_kwptm"]
+[ext_resource type="Script" path="res://mug/spawner.gd" id="5_0yj40"]
+[ext_resource type="Script" path="res://mug_detector.gd" id="11_0upcv"]
+[ext_resource type="AudioStream" uid="uid://3je7dllkaj54" path="res://assets/music.wav" id="14_72687"]
+[ext_resource type="Script" path="res://audio.gd" id="15_xefxf"]
+[ext_resource type="Texture2D" uid="uid://ctcimmki30jel" path="res://img/controls.png" id="17_x8gwn"]
+[ext_resource type="Script" path="res://show_on_h.gd" id="18_0811i"]
+[ext_resource type="Texture2D" uid="uid://dfmu6rucdehr5" path="res://img/objective.png" id="18_d1xxl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8jf7q"]
+size = Vector3(12.1402, 7.856, 0.351398)
+
+[node name="Main" type="Node3D"]
+
+[node name="MainCamera" type="Camera3D" parent="."]
+transform = Transform3D(-0.545612, -0.554722, 0.628165, 5.56409e-05, 0.749542, 0.661956, -0.838038, 0.361207, -0.408929, 24.9396, 10.7146, -9.91023)
+current = true
+
+[node name="Environment" parent="." instance=ExtResource("1_k1ajf")]
+
+[node name="Machine" parent="." instance=ExtResource("2_fyhy5")]
+transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0, 0.878151, 0)
+
+[node name="Printer" parent="." instance=ExtResource("3_4ri0b")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 10.3013, 0, 4.25082)
+
+[node name="LeftPrinter" parent="." instance=ExtResource("4_kwptm")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 22.5385, -1.90735e-06, 4.42229)
+
+[node name="MugSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.298422, 8.26757, -3.35392)
+script = ExtResource("5_0yj40")
+
+[node name="Timer" type="Timer" parent="MugSpawner"]
+wait_time = 0.367
+autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HFlowContainer" type="VFlowContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/MarginContainer/HFlowContainer"]
+layout_mode = 2
+text = "Press H to show help.
+
+Press M to mute/unmute music."
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+texture = ExtResource("17_x8gwn")
+expand_mode = 3
+script = ExtResource("18_0811i")
+
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/MarginContainer/HFlowContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+texture = ExtResource("18_d1xxl")
+expand_mode = 3
+script = ExtResource("18_0811i")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("14_72687")
+max_polyphony = 3
+script = ExtResource("15_xefxf")
+
+[node name="MugDetector" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.8483, -1.90735e-06, 11.4572)
+script = ExtResource("11_0upcv")
+
+[node name="Area3D" type="Area3D" parent="MugDetector"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MugDetector/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.26962, -0.229061)
+shape = SubResource("BoxShape3D_8jf7q")
+
+[connection signal="timeout" from="MugSpawner/Timer" to="MugSpawner" method="spawn"]
+[connection signal="finished" from="AudioStreamPlayer" to="AudioStreamPlayer" method="_on_finished"]
+[connection signal="body_entered" from="MugDetector/Area3D" to="MugDetector" method="_on_area_3d_body_entered"]

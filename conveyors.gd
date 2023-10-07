@@ -7,6 +7,7 @@ var downhill_force = 1
 
 var left : Vector3
 var centralizing_force = 0.5
+var up_force = 0.8
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	bodies = []
@@ -21,6 +22,8 @@ func _process(delta):
 		
 		var centralizing_force_direction = left * sign(global_position.x - body.global_position.x)
 		body.apply_force(centralizing_force_direction * centralizing_force)
+		
+		body.apply_force(up_force * Vector3.UP)
 
 func _on_area_3d_body_entered(body):
 	if body is Mug: 

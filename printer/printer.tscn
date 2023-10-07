@@ -140,8 +140,8 @@ size = Vector3(6.375, 2.92, 2.585)
 
 [node name="LeftPrinter" type="StaticBody3D" node_paths=PackedStringArray("outlet_A", "outlet_B")]
 script = ExtResource("1_l8av7")
-outlet_A = NodePath("PrinterMesh/Outlet3")
-outlet_B = NodePath("PrinterMesh/Outlet4")
+outlet_A = NodePath("Output")
+outlet_B = NodePath("Output2")
 
 [node name="PrinterMesh" type="Node3D" parent="."]
 

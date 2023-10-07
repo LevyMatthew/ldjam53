@@ -1,8 +1,98 @@
-[gd_scene load_steps=17 format=3 uid="uid://c0eiok5jbxbfc"]
+[gd_scene load_steps=26 format=3 uid="uid://c0eiok5jbxbfc"]
 
 [ext_resource type="Script" path="res://machine/machine.gd" id="1_b7vop"]
 [ext_resource type="Script" path="res://machine/machine_anim.gd" id="2_8gcar"]
 [ext_resource type="Texture2D" uid="uid://3gbq4qscy8o6" path="res://assets/Machine_0.png" id="3_pm40h"]
+[ext_resource type="Shader" path="res://shaders/bolt.gdshader" id="4_ncrhw"]
+[ext_resource type="Shader" path="res://shaders/bolt_sphere.gdshader" id="5_2tc2r"]
+
+[sub_resource type="Animation" id="Animation_d52xy"]
+resource_name = "close"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CosmeticMachine/GripR")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.00208927, -0.342014, -0.00574022, 0.939675, 0.2, 1, -0.00135429, 0.221698, -0.0059566, 0.975096)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CosmeticMachine/GripL")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.0222105, 0.312423, 0.0304752, 0.949194, 0.2, 1, 0.00316879, -0.225569, 0.0375767, 0.973497)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bolt:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:open")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_hyt0v"]
+resource_name = "openclose"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CosmeticMachine/GripR")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.00135429, 0.221698, -0.0059566, 0.975096, 0.2, 1, 0.00208927, -0.342014, -0.00574022, 0.939675)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CosmeticMachine/GripL")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.00316879, -0.225569, 0.0375767, 0.973497, 0.2, 1, 0.0222105, 0.312423, 0.0304752, 0.949194)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Bolt:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".:open")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o21rm"]
+_data = {
+"close": SubResource("Animation_d52xy"),
+"open": SubResource("Animation_hyt0v")
+}
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_phuc3"]
 resource_name = "Material"
@@ -169,11 +259,34 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_jjkwd")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1nmuw"]
-size = Vector3(1, 2.17083, 1.74932)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_4l78j"]
 size = Vector3(2.04, 1.275, 1.42)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lt5ya"]
+render_priority = 0
+shader = ExtResource("4_ncrhw")
+shader_parameter/scale = 5.46
+shader_parameter/speed = 1.0
+shader_parameter/width = 0.1
+
+[sub_resource type="QuadMesh" id="QuadMesh_24b4p"]
+material = SubResource("ShaderMaterial_lt5ya")
+size = Vector2(1, 1.535)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hid5l"]
+render_priority = 0
+shader = ExtResource("5_2tc2r")
+shader_parameter/scale = 5.0
+shader_parameter/speed = 1.5
+shader_parameter/width = 0.04
+
+[sub_resource type="SphereMesh" id="SphereMesh_c08hk"]
+material = SubResource("ShaderMaterial_hid5l")
+radius = 0.2
+height = 0.4
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k2kfw"]
+radius = 1.0
 
 [node name="Machine" type="RigidBody3D" node_paths=PackedStringArray("cosmetic_machine")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.878151, 0)
@@ -181,6 +294,11 @@ axis_lock_angular_x = true
 axis_lock_angular_z = true
 script = ExtResource("1_b7vop")
 cosmetic_machine = NodePath("CosmeticMachine")
+
+[node name="Anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o21rm")
+}
 
 [node name="CosmeticMachine" type="Node3D" parent="."]
 script = ExtResource("2_8gcar")
@@ -191,12 +309,12 @@ mesh = SubResource("ArrayMesh_7rb1a")
 skeleton = NodePath("")
 
 [node name="GripR" type="MeshInstance3D" parent="CosmeticMachine"]
-transform = Transform3D(0.874921, 0.0114065, 0.484131, -0.0127958, 0.999918, -0.000434272, -0.484096, -0.00581486, 0.874996, 0.690045, 0, -0.761783)
+transform = Transform3D(0.901629, 0.011016, 0.43237, -0.012217, 0.999925, -6.98492e-09, -0.432338, -0.00528226, 0.901696, 0.690045, 0, -0.761783)
 mesh = SubResource("ArrayMesh_gaap5")
 skeleton = NodePath("")
 
 [node name="GripL" type="MeshInstance3D" parent="CosmeticMachine"]
-transform = Transform3D(0.859186, -0.073548, -0.50635, 0.071732, 0.997156, -0.0231219, 0.50661, -0.0164555, 0.862018, -0.700293, 0, -0.754951)
+transform = Transform3D(0.895413, -0.0745912, -0.438944, 0.0717321, 0.997156, -0.0231219, 0.43942, -0.0107827, 0.898217, -0.700293, 0, -0.754951)
 mesh = SubResource("ArrayMesh_7jlbf")
 skeleton = NodePath("")
 
@@ -212,18 +330,35 @@ skeleton = NodePath("")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.565875, -2.33331)
 
 [node name="Camera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.93617, 0.351548, 0, -0.351548, 0.93617, 0, 1.74883, -1.30091)
+transform = Transform3D(1, 0, 0, 0, 0.93617, 0.351548, 0, -0.351548, 0.93617, 0, 1.94797, -1.07585)
 fov = 110.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.372005, 0)
-shape = SubResource("BoxShape3D_1nmuw")
+[node name="Reach" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.874099)
 
-[node name="Area3D" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Reach"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.303806, -1.7)
 shape = SubResource("BoxShape3D_4l78j")
 
-[connection signal="body_entered" from="Area3D" to="." method="_on_body_entered"]
-[connection signal="body_exited" from="Area3D" to="." method="_on_body_exited"]
+[node name="Bolt" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, 4.37114e-08, 1.91069e-15, 1, 1, 4.37114e-08, -4.37114e-08, 0, 0.526218, -1.87304)
+visible = false
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Bolt"]
+transform = Transform3D(0.939256, -0.343217, 2.6552e-09, 0.343217, 0.939256, -1.50025e-08, 2.6552e-09, 1.50025e-08, 1, -0.164641, -0.804278, 0)
+mesh = SubResource("QuadMesh_24b4p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Bolt"]
+transform = Transform3D(-0.949944, -0.312418, 8.52348e-08, 0.312418, -0.949944, -1.36562e-08, 8.52348e-08, 1.36562e-08, 1, -0.214371, 0.770546, 0)
+mesh = SubResource("QuadMesh_24b4p")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Bolt"]
+transform = Transform3D(3.55271e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, -0.443691, 0.00367592, 0.0464642)
+mesh = SubResource("SphereMesh_c08hk")
+
+[node name="Body" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.761003, -0.0639365)
+shape = SubResource("CapsuleShape3D_k2kfw")
+
+[connection signal="body_entered" from="Reach" to="." method="_on_body_entered"]
+[connection signal="body_exited" from="Reach" to="." method="_on_body_exited"]

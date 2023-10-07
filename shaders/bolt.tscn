@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://ci8h7tesavjov"]
+
+[ext_resource type="Shader" path="res://shaders/bolt.gdshader" id="1_a1ytk"]
+[ext_resource type="Shader" path="res://shaders/bolt_sphere.gdshader" id="2_jnhia"]
+[ext_resource type="Shader" uid="uid://ccgtm57uknbsd" path="res://shaders/bolt_sphere.tres" id="3_8guhs"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lt5ya"]
+render_priority = 0
+shader = ExtResource("1_a1ytk")
+shader_parameter/scale = 5.0
+shader_parameter/speed = 1.5
+shader_parameter/width = 0.04
+
+[sub_resource type="QuadMesh" id="QuadMesh_24b4p"]
+material = SubResource("ShaderMaterial_lt5ya")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vgmy3"]
+render_priority = 0
+shader = ExtResource("2_jnhia")
+shader_parameter/scale = 5.0
+shader_parameter/speed = 1.5
+shader_parameter/width = 0.04
+
+[sub_resource type="SphereMesh" id="SphereMesh_u7r81"]
+material = SubResource("ShaderMaterial_vgmy3")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ep8g1"]
+render_priority = 0
+shader = ExtResource("3_8guhs")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mdnxf"]
+material = SubResource("ShaderMaterial_ep8g1")
+
+[node name="Bolt" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("QuadMesh_24b4p")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_u7r81")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3751, 0, 0)
+mesh = SubResource("SphereMesh_mdnxf")
